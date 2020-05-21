@@ -7,6 +7,8 @@
     },
     "dependencies": [{
         "name": "Seeed_Arduino_TFlidar",
-        "url": "https://github.com/Seeed-Studio/Seeed_Arduino_TFlidar.git"
+        "url": "https://github.com/Seeed-Studio/Seeed_Arduino_TFlidar.git",
+        "name": "SoftwareSerial",
+        "url": "https://github.com/PaulStoffregen/SoftwareSerial.git"
     }]
 }
