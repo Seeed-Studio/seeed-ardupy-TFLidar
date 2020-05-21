@@ -33,7 +33,7 @@
 
 void common_hal_tf_lidar_construct(abstract_module_t * self);
 void common_hal_tf_lidar_deinit(abstract_module_t * self);
-
+bool common_hal_tf_lidar_get_frame_data(abstract_module_t * self);
 extern const mp_obj_type_t grove_tf_lidar_type;
 
 m_generic_make(tf_lidar) {
@@ -43,11 +43,22 @@ m_generic_make(tf_lidar) {
     return self;
 }
 
+void tf_lidar_obj_attr(mp_obj_t self_in, qstr attr, mp_obj_t *dest){
+    abstract_module_t * self = (abstract_module_t *)self_in;
+}   
+
+mp_obj_t tf_lidar_get_frame_data(mp_obj_t self_in){
+    bool ret_val;
+    ret_val = common_hal_tf_lidar_get_frame_data((abstract_module_t *)self_in);
+    return mp_obj_new_bool(ret_val);
+}
+
 const mp_rom_map_elem_t tf_lidar_locals_dict_table[] = {
     // instance methods
     { MP_ROM_QSTR(MP_QSTR_deinit),    MP_ROM_PTR(&tf_lidar_deinit_obj) },
     { MP_ROM_QSTR(MP_QSTR___enter__), MP_ROM_PTR(&default___enter___obj) },
     { MP_ROM_QSTR(MP_QSTR___exit__),  MP_ROM_PTR(&tf_lidar_obj___exit___obj) },
+    { MP_ROM_QSTR(MP_QSTR_get_frame_data), MP_ROM_PTR(&tf_lidar_get_frame_data_obj) },
 };
 
 MP_DEFINE_CONST_DICT(tf_lidar_locals_dict, tf_lidar_locals_dict_table);
@@ -57,4 +68,5 @@ const mp_obj_type_t grove_tf_lidar_type = {
     .name = MP_QSTR_grove_tf_lidar,
     .make_new = tf_lidar_make_new,
     .locals_dict = (mp_obj_t)&tf_lidar_locals_dict,
+    .attr = tf_lidar_obj_attr,
 };

@@ -25,7 +25,7 @@
  */
 
 
-#include "Seeed_Arduino_TFlidar/TFLidar.h"
+#include "Seeed_Arduino_TFlidar/src/TFLidar.h"
 extern "C"{
 #include "py/mphal.h"
 #include "py/nlr.h"
@@ -36,16 +36,18 @@ extern "C"{
 
 
 #define  lidar     (*(TFLidar  *)self->module)
-
 void * operator new(size_t, void *);
 
 extern "C"{
     void common_hal_tf_lidar_construct(abstract_module_t * self){
-        Tluna * SeeedTFLuna =new Tluna();
+        TFLuna * SeeedTFLuna =new TFLuna();
         self->module = new(m_new_obj(TFLidar)) TFLidar(SeeedTFLuna);
         lidar.begin(&Serial1,115200); 
     }
     void common_hal_tf_lidar_deinit(abstract_module_t * self){
         lidar.~TFLidar();
+    }
+    bool common_hal_tf_lidar_get_frame_data(abstract_module_t * self){
+        return lidar.get_frame_data();
     }
 }
