@@ -34,6 +34,9 @@
 void common_hal_tf_lidar_construct(abstract_module_t * self);
 void common_hal_tf_lidar_deinit(abstract_module_t * self);
 bool common_hal_tf_lidar_get_frame_data(abstract_module_t * self);
+uint16_t common_hal_tf_lidar_get_distance(abstract_module_t * self);
+uint16_t common_hal_tf_lidar_get_strength(abstract_module_t * self);
+uint16_t common_hal_tf_lidar_get_chip_temperature(abstract_module_t * self);
 extern const mp_obj_type_t grove_tf_lidar_type;
 
 m_generic_make(tf_lidar) {
@@ -45,13 +48,35 @@ m_generic_make(tf_lidar) {
 
 void tf_lidar_obj_attr(mp_obj_t self_in, qstr attr, mp_obj_t *dest){
     abstract_module_t * self = (abstract_module_t *)self_in;
+    uint32_t value;
+    if (dest[0] == MP_OBJ_NULL){
+        if (attr == MP_QSTR_distance) {
+            value = common_hal_tf_lidar_get_distance(self);
+            dest[0] = mp_obj_new_int(value);
+            return;
+        }
+        else if (attr == MP_QSTR_strength){
+            value = common_hal_tf_lidar_get_strength(self);
+            dest[0] = mp_obj_new_int(value);
+            return;
+        }
+        else if(attr == MP_QSTR_chip_temperature){
+            value = common_hal_tf_lidar_get_chip_temperature(self);
+            dest[0] = mp_obj_new_int(value);
+            return;
+        }
+    }
+    generic_method_lookup(self_in, attr, dest);    
 }   
 
 mp_obj_t tf_lidar_get_frame_data(mp_obj_t self_in){
     bool ret_val;
-    ret_val = common_hal_tf_lidar_get_frame_data((abstract_module_t *)self_in);
+    abstract_module_t * self = (abstract_module_t *)self_in;    
+    ret_val = common_hal_tf_lidar_get_frame_data(self);
     return mp_obj_new_bool(ret_val);
 }
+
+MP_DEFINE_CONST_FUN_OBJ_1(tf_lidar_get_frame_data_obj, tf_lidar_get_frame_data);
 
 const mp_rom_map_elem_t tf_lidar_locals_dict_table[] = {
     // instance methods

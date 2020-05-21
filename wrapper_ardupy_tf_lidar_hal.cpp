@@ -50,4 +50,13 @@ extern "C"{
     bool common_hal_tf_lidar_get_frame_data(abstract_module_t * self){
         return lidar.get_frame_data();
     }
+    uint16_t common_hal_tf_lidar_get_distance(abstract_module_t * self){
+        return lidar.get_distance();
+    }
+    uint16_t common_hal_tf_lidar_get_strength(abstract_module_t * self){
+        return lidar.get_strength();
+    }
+    uint8_t common_hal_tf_lidar_get_chip_temperature(abstract_module_t * self){
+        return lidar.get_chip_temperature();
+    }    
 }
