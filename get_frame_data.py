@@ -8,6 +8,6 @@ while True:
         time.sleep(0.001)
     print ("The distance is:", lidar.distance, 'CM')
     print ("The strength is:", lidar.strength, '')
-    time.sleep(0.1)
+    time.sleep(1)
     
 
