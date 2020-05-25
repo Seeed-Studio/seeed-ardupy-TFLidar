@@ -1,4 +1,4 @@
-# seeed-ardupy-TFLidar
+# seeed-ardupy-TFLidar [![Build Status](https://travis-ci.com/Seeed-Studio/seeed-ardupy-TFLidar.svg?branch=master)](https://travis-ci.com/Seeed-Studio/seeed-ardupy-TFLidar)
 
 ## Introduction
 
